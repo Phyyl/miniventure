@@ -21,6 +21,7 @@ public class TreeTile extends Tile {
 		connectsToGrass = true; // this tile can connect to grass
 	}
 
+	@Override
 	public void render(Screen screen, Level level, int x, int y) {
 		int col = Color.get(10, 30, 151, level.grassColor); // main top tree color
 		int barkCol1 = Color.get(10, 30, 430, level.grassColor); // Lighter bark color
@@ -58,6 +59,7 @@ public class TreeTile extends Tile {
 	}
 
 	/** Update method, updates (ticks) 60 times a second */
+	@Override
 	public void tick(Level level, int xt, int yt) {
 		int damage = level.getData(xt, yt); // gets the damage from the tree
 		if (damage > 0) level.setData(xt, yt, damage - 1); // if the damage is above 0, then decrease the damage by 1.
@@ -66,16 +68,19 @@ public class TreeTile extends Tile {
 	}
 
 	/** Determines if you can pass through the tile */
+	@Override
 	public boolean mayPass(Level level, int x, int y, Entity e) {
 		return false; // You can't walk through a tree, silly.
 	}
 
 	/** What happens when you punch the tree. */
+	@Override
 	public void hurt(Level level, int x, int y, Mob source, int dmg, int attackDir) {
 		hurt(level, x, y, dmg); // you do damage to it
 	}
 
 	/** What happens when you use a item on the tree */
+	@Override
 	public boolean interact(Level level, int xt, int yt, Player player, Item item, int attackDir) {
 		if (item instanceof ToolItem) { // if the item is a tool...
 			ToolItem tool = (ToolItem) item; // converts the Item object to a ToolItem object

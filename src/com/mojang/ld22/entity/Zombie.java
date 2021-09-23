@@ -18,6 +18,7 @@ public class Zombie extends Mob {
 
 	}
 
+	@Override
 	public void tick() {
 		super.tick(); // ticks the Entity.java part of this class
 
@@ -45,6 +46,7 @@ public class Zombie extends Mob {
 		if (randomWalkTime > 0) randomWalkTime--;//if walk time is larger than 0, decrement!
 	}
 
+	@Override
 	public void render(Screen screen) {
 		/* our texture in the png file */
 		int xt = 0; // X tile coordinate in the sprite-sheet
@@ -86,12 +88,14 @@ public class Zombie extends Mob {
 		screen.render(xo + 8 - 8 * flip2, yo + 8, xt + 1 + (yt + 1) * 32, col, flip2); // draws the bottom-right tile
 	}
 
+	@Override
 	protected void touchedBy(Entity entity) {
 		if (entity instanceof Player) { // if the entity touches the player
 			entity.hurt(this, lvl + 1, dir); // hurts the player, damage is based on lvl.
 		}
 	}
 
+	@Override
 	protected void die() {
 		super.die(); // Parent death call
 

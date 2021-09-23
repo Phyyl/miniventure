@@ -17,6 +17,7 @@ public class Anvil extends Furniture {
 	}
 
 	/** This is what occurs when the player uses the "Menu" command near this */
+	@Override
 	public boolean use(Player player, int attackDir) {
 		player.game.setMenu(new CraftingMenu(Crafting.anvilRecipes, player)); // Sets the menu to the crafting menu with anvil recipes.
 		return true;

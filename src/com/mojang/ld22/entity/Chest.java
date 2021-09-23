@@ -15,6 +15,7 @@ public class Chest extends Furniture {
 	}
 
 	/** This is what occurs when the player uses the "Menu" command near this */
+	@Override
 	public boolean use(Player player, int attackDir) {
 		player.game.setMenu(new ContainerMenu(player, "Chest", inventory)); // Opens up a menu with the player's inventory and the chest's inventory
 		return true;

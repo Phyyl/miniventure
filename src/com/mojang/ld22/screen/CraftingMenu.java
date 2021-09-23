@@ -30,6 +30,7 @@ public class CraftingMenu extends Menu {
 
 		/* This sorts the recipes so that the ones you can craft will appear on top */
 		Collections.sort(this.recipes, new Comparator<Recipe>() {
+			@Override
 			public int compare(Recipe r1, Recipe r2) {
 				if (r1.canCraft && !r2.canCraft) return -1; // if the first item can be crafted while the second can't, the first one will go above in the list
 				if (!r1.canCraft && r2.canCraft) return 1; // if the second item can be crafted while the first can't, the second will go over that one.
@@ -38,6 +39,7 @@ public class CraftingMenu extends Menu {
 		});
 	}
 
+	@Override
 	public void tick() {
 		if (input.menu.clicked) game.setMenu(null); // if the player presses the "Menu" key then it will exit this menu
 
@@ -63,6 +65,7 @@ public class CraftingMenu extends Menu {
 		}
 	}
 
+	@Override
 	public void render(Screen screen) {
 		Font.renderFrame(screen, "Have", 12, 1, 19, 3); // renders the 'have' items window
 		Font.renderFrame(screen, "Cost", 12, 4, 19, 11); // renders the 'cost' items window

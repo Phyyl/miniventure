@@ -12,6 +12,7 @@ public class InstructionsMenu extends Menu {
 		this.parent = parent; // The parent Menu that it will go back to.
 	}
 
+	@Override
 	public void tick() {
 		if (input.attack.clicked || input.menu.clicked) {
 			game.setMenu(parent);  // If the user presses the "Attack" or "Menu" button, it will go back to the parent menu.
@@ -19,6 +20,7 @@ public class InstructionsMenu extends Menu {
 	}
 
 	/** Renders the text on the screen */
+	@Override
 	public void render(Screen screen) {
 		screen.clear(0); // clears the screen to be a black color.
 		

@@ -13,6 +13,7 @@ public class HoleTile extends Tile {
 		connectsToLava= true; // this tile can connect to lava
 	}
 
+	@Override
 	public void render(Screen screen, Level level, int x, int y) {
 		int col = Color.get(111, 111, 110, 110); // the main color for the hole
 		int transitionColor1 = Color.get(3, 111, level.dirtColor - 111, level.dirtColor); // the transition color for dirt
@@ -54,6 +55,7 @@ public class HoleTile extends Tile {
 	}
 
 	/** Determines if the entity can pass this tile */
+	@Override
 	public boolean mayPass(Level level, int x, int y, Entity e) {
 		return e.canSwim(); // if the entity can swim, then he can pass
 	}

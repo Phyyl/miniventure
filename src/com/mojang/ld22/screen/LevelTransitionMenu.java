@@ -11,12 +11,14 @@ public class LevelTransitionMenu extends Menu {
 		this.dir = dir; // Assigns the direction
 	}
 
+	@Override
 	public void tick() {
 		time += 2; // Ticks up 2 times per tick
 		if (time == 30) game.changeLevel(dir); // When time equals 30, it will change the level
 		if (time == 60) game.setMenu(null); // When time equals 60, it will get out of this menu
 	}
 	
+	@Override
 	public void render(Screen screen) {
 		for (int x = 0; x < (Game.WIDTH/3); x++) { // Loop however many times depending on the width (It's divided by 3 because the pixels are scaled up by 3)
 			for (int y = 0; y < (Game.HEIGHT/3); y++) { // Loop however many times depending on the height (It's divided by 3 because the pixels are scaled up by 3)

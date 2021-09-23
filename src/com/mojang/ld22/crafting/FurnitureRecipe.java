@@ -12,6 +12,7 @@ public class FurnitureRecipe extends Recipe {
 		this.clazz = clazz; // assigns the class
 	}
 
+	@Override
 	public void craft(Player player) {
 		try {
 			player.inventory.add(0, new FurnitureItem(clazz.newInstance())); // crafts the furniture item into the player's inventory

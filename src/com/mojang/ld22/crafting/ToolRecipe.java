@@ -24,6 +24,7 @@ public class ToolRecipe extends Recipe {
 	}
 
 	/** Crafts the tool into your inventory */
+	@Override
 	public void craft(Player player) {
 		player.inventory.add(0, new ToolItem(type, level)); //adds the tool into your inventory
 	}

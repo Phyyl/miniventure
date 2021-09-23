@@ -17,6 +17,7 @@ public class Slime extends Mob {
 		health = maxHealth = lvl * lvl * 5; // Health based on level
 	}
 
+	@Override
 	public void tick() {
 		super.tick(); // ticks the Entity.java part of this class
 
@@ -51,6 +52,7 @@ public class Slime extends Mob {
 		}
 	}
 
+	@Override
 	protected void die() {
 		super.die(); // Parent death call
 
@@ -65,6 +67,7 @@ public class Slime extends Mob {
 		
 	}
 
+	@Override
 	public void render(Screen screen) {
 		/* our texture in the png file */
 		int xt = 0; // X tile coordinate in the sprite-sheet
@@ -96,6 +99,7 @@ public class Slime extends Mob {
 		screen.render(xo + 8, yo + 8, xt + 1 + (yt + 1) * 32, col, 0); // draws the bottom-right tile
 	}
 
+	@Override
 	protected void touchedBy(Entity entity) {
 		if (entity instanceof Player) { // if we touch the player
 			entity.hurt(this, lvl, dir); // attack

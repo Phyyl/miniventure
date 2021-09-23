@@ -13,6 +13,7 @@ public class TitleMenu extends Menu {
 	public TitleMenu() {
 	}
 
+	@Override
 	public void tick() {
 		if (input.up.clicked) selected--; // If the player presses the up key, then move up 1 option in the list
 		if (input.down.clicked) selected++; // If the player presses the down key, then move down 1 option in the list
@@ -32,6 +33,7 @@ public class TitleMenu extends Menu {
 		}
 	}
 
+	@Override
 	public void render(Screen screen) {
 		screen.clear(0);// Clears the screen to a black color.
 

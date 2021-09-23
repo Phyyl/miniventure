@@ -27,6 +27,7 @@ public class Spark extends Entity {
 	}
 
 	/** Update method, updates (ticks) 60 times a second */
+	@Override
 	public void tick() {
 		time++; // increases time by 1
 		if (time >= lifeTime) { // if time is larger or equal to lifeTime then...
@@ -47,11 +48,13 @@ public class Spark extends Entity {
 	}
 
 	/** Can this entity block you? Nope. */
+	@Override
 	public boolean isBlockableBy(Mob mob) {
 		return false;
 	}
 
 	/** Renders the spark on the screen */
+	@Override
 	public void render(Screen screen) {
 		/* this first part is for the blinking effect */
 		if (time >= lifeTime - 6 * 20) {// if time is larger or equal to lifeTime - 6 * 20 then...

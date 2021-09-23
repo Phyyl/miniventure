@@ -17,6 +17,7 @@ public class CactusTile extends Tile {
 		connectsToSand = true; // Can connect to sand
 	}
 
+	@Override
 	public void render(Screen screen, Level level, int x, int y) {
 		int col = Color.get(20, 40, 50, level.sandColor); // colors of the cactus
 		screen.render(x * 16 + 0, y * 16 + 0, 8 + 2 * 32, col, 0); // renders the top-left part of the cactus
@@ -26,11 +27,13 @@ public class CactusTile extends Tile {
 	}
 
 	/* Player cannot walk on the cactus (will act as a wall) */
+	@Override
 	public boolean mayPass(Level level, int x, int y, Entity e) {
 		return false;
 	}
 
 	/* Damage do to the cactus by the player */
+	@Override
 	public void hurt(Level level, int x, int y, Mob source, int dmg, int attackDir) {
 		int damage = level.getData(x, y) + dmg; // Damage done to the cactus (it's "health" in some sense). dmg is the amount the player did to the cactus.
 		level.add(new SmashParticle(x * 16 + 8, y * 16 + 8)); // creates a smash particle
@@ -46,10 +49,12 @@ public class CactusTile extends Tile {
 		}
 	}
 
+	@Override
 	public void bumpedInto(Level level, int x, int y, Entity entity) {
 		entity.hurt(this, x, y, 1); // the player will take 1 damage if they bump into it.
 	}
 
+	@Override
 	public void tick(Level level, int xt, int yt) {
 		int damage = level.getData(xt, yt); // gets the amount of damage the cactus has
 		if (damage > 0) level.setData(xt, yt, damage - 1); // If the number of damage is above 0, then it will minus itself by 1 (heal)

@@ -34,40 +34,48 @@ public class ToolItem extends Item {
 	}
 	
 	/** Gets the colors for this tool */
+	@Override
 	public int getColor() {
 		return LEVEL_COLORS[level];
 	}
 
 	/** gets the sprite for this tool */
+	@Override
 	public int getSprite() {
 		return type.sprite + 5 * 32;
 	}
 
 	/** Renders the icon for this tool on the screen */
+	@Override
 	public void renderIcon(Screen screen, int x, int y) {
 		screen.render(x, y, getSprite(), getColor(), 0);
 	}
 	
 	/** Renders the icon & name of this tool for inventory/crafting purposes. */
+	@Override
 	public void renderInventory(Screen screen, int x, int y) {
 		screen.render(x, y, getSprite(), getColor(), 0);
 		Font.draw(getName(), screen, x + 8, y, Color.get(-1, 555, 555, 555));
 	}
 
 	/** Gets the name of this tool (and it's type) */
+	@Override
 	public String getName() {
 		return LEVEL_NAMES[level] + " " + type.name;
 	}
 	
+	@Override
 	public void onTake(ItemEntity itemEntity) {
 	}
 	
 	/** Can attack mobs with tools. */
+	@Override
 	public boolean canAttack() {
 		return true; 
 	}
 
 	/** Calculates Damage */
+	@Override
 	public int getAttackDamageBonus(Entity e) {
 		if (type == ToolType.axe) {
 			return (level + 1) * 2 + random.nextInt(4); // axes: (level + 1) * 2 + random number beteween 0 and 3, do slightly less damage than swords.
@@ -79,6 +87,7 @@ public class ToolItem extends Item {
 	}
 
 	/** Sees if this item matches another. */
+	@Override
 	public boolean matches(Item item) {
 		if (item instanceof ToolItem) {
 			ToolItem other = (ToolItem) item;

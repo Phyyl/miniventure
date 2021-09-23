@@ -13,6 +13,7 @@ public class StairsTile extends Tile {
 	}
 
 	/** Render method, draws sprites on the screen */
+	@Override
 	public void render(Screen screen, Level level, int x, int y) {
 		int color = Color.get(level.dirtColor, 000, 333, 444); // the color of the stairs
 		int xt = 0; // the x tile position on the tile sheet

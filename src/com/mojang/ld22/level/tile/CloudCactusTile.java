@@ -2,7 +2,6 @@ package com.mojang.ld22.level.tile;
 
 import com.mojang.ld22.entity.AirWizard;
 import com.mojang.ld22.entity.Entity;
-import com.mojang.ld22.entity.ItemEntity;
 import com.mojang.ld22.entity.Mob;
 import com.mojang.ld22.entity.Player;
 import com.mojang.ld22.entity.particle.SmashParticle;
@@ -10,7 +9,6 @@ import com.mojang.ld22.entity.particle.TextParticle;
 import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.item.Item;
-import com.mojang.ld22.item.ResourceItem;
 import com.mojang.ld22.item.ToolItem;
 import com.mojang.ld22.item.ToolType;
 import com.mojang.ld22.level.Level;
@@ -20,6 +18,7 @@ public class CloudCactusTile extends Tile {
 		super(id); //assigns the id
 	} 
 
+	@Override
 	public void render(Screen screen, Level level, int x, int y) {
 		int color = Color.get(444, 111, 333, 555);  // colors of the cloud cactus
 		screen.render(x * 16 + 0, y * 16 + 0, 17 + 1 * 32, color, 0); // renders the top-left part of the cloud cactus
@@ -29,15 +28,18 @@ public class CloudCactusTile extends Tile {
 	}
 
 	/* Determines what can pass this tile */
+	@Override
 	public boolean mayPass(Level level, int x, int y, Entity e) {
 		if (e instanceof AirWizard) return true; // If the entity is the Air Wizard, then it can pass right through.
 		return false;
 	}
 
+	@Override
 	public void hurt(Level level, int x, int y, Mob source, int dmg, int attackDir) {
 		hurt(level, x, y, 0); // If you punch it, it will do 0 damage
 	}
 
+	@Override
 	public boolean interact(Level level, int xt, int yt, Player player, Item item, int attackDir) {
 		if (item instanceof ToolItem) { // If the item the player is holding is a tool...
 			ToolItem tool = (ToolItem) item; // makes a ToolItem conversion of item.
@@ -65,6 +67,7 @@ public class CloudCactusTile extends Tile {
 		}
 	}
 
+	@Override
 	public void bumpedInto(Level level, int x, int y, Entity entity) {
 		if (entity instanceof AirWizard) return; // The AirWizard will not get hurt by this
 		entity.hurt(this, x, y, 3); // 3 damage will be done to anyone who bumps into this (except the air-wizard)

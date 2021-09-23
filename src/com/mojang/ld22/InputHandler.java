@@ -13,8 +13,8 @@ public class InputHandler implements KeyListener {
 		public int presses, absorbs; // presses determine how long you held it down, absorbs will determined if you clicked or held it down.
 		public boolean down, clicked; // booleans to tell if the player has clicked the button, or held down the button.
 
-		public Key() {
-			keys.add(this); //Adds this object to a list of Keys used in the game.
+		public Key(InputHandler inputHandler) {
+			inputHandler.keys.add(this); //Adds this object to a list of Keys used in the game.
 		}
 
 		public void toggle(boolean pressed) {
@@ -39,12 +39,12 @@ public class InputHandler implements KeyListener {
 	public List<Key> keys = new ArrayList<Key>(); // List of keys used in the game
 
 	/* Action keys */
-	public Key up = new Key(); 
-	public Key down = new Key(); 
-	public Key left = new Key();
-	public Key right = new Key();
-	public Key attack = new Key();
-	public Key menu = new Key();
+	public Key up ;
+	public Key down;
+	public Key left;
+	public Key right;
+	public Key attack;
+	public Key menu;
 
 	
 	/** This is used to stop all of the actions when the game is out of focus. */
@@ -62,12 +62,21 @@ public class InputHandler implements KeyListener {
 
 	public InputHandler(Game game) {
 		game.addKeyListener(this); // Adds this to Game.java so it can detect when a key is being pressed.
+
+		up = new Key(this); 
+		down = new Key(this); 
+		left = new Key(this);
+		right = new Key(this);
+		attack = new Key(this);
+		menu = new Key(this);
 	}
 
+	@Override
 	public void keyPressed(KeyEvent ke) {
 		toggle(ke, true); // triggered when a key is pressed.
 	}
 
+	@Override
 	public void keyReleased(KeyEvent ke) {
 		toggle(ke, false); // triggered when a key is let go.
 	}
@@ -100,6 +109,7 @@ public class InputHandler implements KeyListener {
 		if (ke.getKeyCode() == KeyEvent.VK_C) attack.toggle(pressed); // press C, attack toggled
 	}
 
+	@Override
 	public void keyTyped(KeyEvent ke) {
 	} // this is here because KeyListiner needs it to be.
 }

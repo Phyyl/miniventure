@@ -13,6 +13,7 @@ public class AboutMenu extends Menu {
 	}
 
 	/** The update method. 60 updates per second. */
+	@Override
 	public void tick() {
 		if (input.attack.clicked || input.menu.clicked) {
 			game.setMenu(parent); // If the user presses the "Attack" or "Menu" button, it will go back to the parent menu.
@@ -20,6 +21,7 @@ public class AboutMenu extends Menu {
 	}
 
 	/** Renders the text on the screen */
+	@Override
 	public void render(Screen screen) {
 		screen.clear(0); // clears the screen to be a black color.
 

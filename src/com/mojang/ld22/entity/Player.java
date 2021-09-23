@@ -10,10 +10,6 @@ import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.item.FurnitureItem;
 import com.mojang.ld22.item.Item;
 import com.mojang.ld22.item.PowerGloveItem;
-import com.mojang.ld22.item.ResourceItem;
-import com.mojang.ld22.item.ToolItem;
-import com.mojang.ld22.item.ToolType;
-import com.mojang.ld22.item.resource.Resource;
 import com.mojang.ld22.level.Level;
 import com.mojang.ld22.level.tile.Tile;
 import com.mojang.ld22.screen.InventoryMenu;
@@ -47,6 +43,7 @@ public class Player extends Mob {
 		inventory.add(new PowerGloveItem()); // adds a power glove to the player's inventory
 	}
 
+	@Override
 	public void tick() {
 		super.tick(); // ticks the parent (Mob.java)
 
@@ -235,6 +232,7 @@ public class Player extends Mob {
 	}
 
 	/** Draws the player on the screen */
+	@Override
 	public void render(Screen screen) {
 		int xt = 0; // X tile coordinate in the sprite-sheet
 		int yt = 14; // Y tile coordinate in the sprite-sheet
@@ -321,17 +319,20 @@ public class Player extends Mob {
 	}
 
 	/** What happens when the player interacts with a itemEntity */
+	@Override
 	public void touchItem(ItemEntity itemEntity) {
 		itemEntity.take(this); // calls the take() method in ItemEntity
 		inventory.add(itemEntity.item); // adds the item into your inventory
 	}
 
 	/** Returns if the entity can swim */
+	@Override
 	public boolean canSwim() {
 		return true; // yes the player can swim
 	}
 
 	/** Finds a start position for the player to start in. */
+	@Override
 	public boolean findStartPos(Level level) {
 		while (true) { // will loop until it returns
 			int x = random.nextInt(level.w); // gets a random value between 0 and the world's width - 1
@@ -357,6 +358,7 @@ public class Player extends Mob {
 	}
 
 	/** Gets the player's light radius underground */
+	@Override
 	public int getLightRadius() {
 		int r = 2; // the radius of the light.
 		if (activeItem != null) { // if the player has an item
@@ -369,12 +371,14 @@ public class Player extends Mob {
 	}
 
 	/** What happens when the player dies */
+	@Override
 	protected void die() {
 		super.die(); // calls the die() method in Mob.java
 		Sound.playerDeath.play(); // plays a sound
 	}
 
 	/** What happens when the player touches an entity */
+	@Override
 	protected void touchedBy(Entity entity) {
 		if (!(entity instanceof Player)) { // if the entity is not a player.
 			entity.touchedBy(this); // calls the touchedBy() method in the entity's class
@@ -382,6 +386,7 @@ public class Player extends Mob {
 	}
 
 	/** What happens when the player is hurt */
+	@Override
 	protected void doHurt(int damage, int attackDir) {
 		if (hurtTime > 0 || invulnerableTime > 0) return; // if hurt time OR invulnerableTime is above 0, then skip the rest of the code.
 

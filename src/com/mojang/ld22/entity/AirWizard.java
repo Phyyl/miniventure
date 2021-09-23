@@ -2,8 +2,6 @@ package com.mojang.ld22.entity;
 
 import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
-import com.mojang.ld22.item.ResourceItem;
-import com.mojang.ld22.item.resource.Resource;
 import com.mojang.ld22.sound.Sound;
 
 public class AirWizard extends Mob {
@@ -20,6 +18,7 @@ public class AirWizard extends Mob {
 	}
 
 	/** Update method, updates (ticks) 60 times a second */
+	@Override
 	public void tick() {
 		super.tick(); // ticks the Entity.java part of this class
 
@@ -42,15 +41,15 @@ public class AirWizard extends Mob {
 		if (attackTime > 0) { // if the attackTime is larger than 0
 			attackTime--; // attackTime will minus by 1.
 			double dir = attackTime * 0.25 * (attackTime % 2 * 2 - 1); //assigns a local direction variable from the attack time.
-			double speed = (0.7) + attackType * 0.2; // speed is dependent on the attackType. (higher attackType, faster speeds)
-			level.add(new Spark(this, Math.cos(dir) * speed, Math.sin(dir) * speed));// adds a spark entity with the cosine and sine of dir times speed.
+			double curSpeed = (0.7) + attackType * 0.2; // speed is dependent on the attackType. (higher attackType, faster speeds)
+			level.add(new Spark(this, Math.cos(dir) * curSpeed, Math.sin(dir) * curSpeed));// adds a spark entity with the cosine and sine of dir times speed.
 			return; // skips the rest of the code
 		}
 
 		if (level.player != null && randomWalkTime == 0) { // if there is a player around, and the randomWalkTime is equal to 0
 			int xd = level.player.x - x; // the horizontal distance between the player and the air wizard.
 			int yd = level.player.y - y; // the vertical distance between the player and the air wizard.
-			if (xd * xd + yd * yd < 32 * 32) { // if the x-distance² + y-distance² is smaller than 32² then...
+			if (xd * xd + yd * yd < 32 * 32) { // if the x-distanceï¿½ + y-distanceï¿½ is smaller than 32ï¿½ then...
 				/* Move away from the player */
 				xa = 0; // x acceleration
 				ya = 0; // y acceleration
@@ -58,7 +57,7 @@ public class AirWizard extends Mob {
 				if (xd > 0) xa = -1; // if the xd is more than 0, then increase x acceleration by 1 (negative direction)
 				if (yd < 0) ya = +1; // if the yd is less than 0, then increase y acceleration by 1
 				if (yd > 0) ya = -1; // if the yd is more than 0, then increase y acceleration by 1 (negative direction)
-			} else if (xd * xd + yd * yd > 80 * 80) { // if the x-distance² + y-distance² is smaller than 80² then...
+			} else if (xd * xd + yd * yd > 80 * 80) { // if the x-distanceï¿½ + y-distanceï¿½ is smaller than 80ï¿½ then...
 				/* Move towards from the player */
 				xa = 0; // x acceleration
 				ya = 0; // y acceleration
@@ -81,7 +80,7 @@ public class AirWizard extends Mob {
 				int xd = level.player.x - x; // the horizontal distance between the player and the air wizard.
 				int yd = level.player.y - y; // the vertical distance between the player and the air wizard.
 				
-				/* if a random number (0 to 3) equals 0 and the x-distance² + y-distance² is smaller than 50² then...*/
+				/* if a random number (0 to 3) equals 0 and the x-distanceï¿½ + y-distanceï¿½ is smaller than 50ï¿½ then...*/
 				if (random.nextInt(4) == 0 && xd * xd + yd * yd < 50 * 50) {
 					if (attackDelay == 0 && attackTime == 0) { // if attackDelay & attackTime equal 0, then...
 						attackDelay = 60 * 2; // attackDelay equals 120 (about 2 seconds)
@@ -92,6 +91,7 @@ public class AirWizard extends Mob {
 	}
 
 	/** Renders the air wizard on the screen */
+	@Override
 	public void render(Screen screen) {
 		int xt = 8; // x coordinate on the sprite sheet
 		int yt = 14; // y coordinate on the sprite sheet
@@ -142,6 +142,7 @@ public class AirWizard extends Mob {
 	}
 
 	/** What happens when the player (or any entity) touches the air wizard */
+	@Override
 	protected void touchedBy(Entity entity) {
 		if (entity instanceof Player) { // if the entity happens to be the player...
 			entity.hurt(this, 3, dir); // hurt the player for 3 damage.
@@ -149,6 +150,7 @@ public class AirWizard extends Mob {
 	}
 
 	/** What happens when the air wizard dies */
+	@Override
 	protected void die() {
 		super.die(); // calls the die() method in Mob.java
 		if (level.player != null) { // if the player is not null

@@ -15,6 +15,7 @@ public class FoodResource extends Resource {
 	}
 
 	/** What happens when the players uses the item on a tile */
+	@Override
 	public boolean interactOn(Tile tile, Level level, int xt, int yt, Player player, int attackDir) {
 		if (player.health < player.maxHealth && player.payStamina(staminaCost)) { // If the player's health is less than the max health AND he can pay the stamina
 			player.heal(heal); // heal the player.

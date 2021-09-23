@@ -15,6 +15,7 @@ public class SmashParticle extends Entity {
 	}
 
 	/* Update method, 60 updates (ticks) a second */
+	@Override
 	public void tick() {
 		time++; //increases the time variable by 1
 		if (time > 10) {//if time is over 10 (1/6th of a second old)
@@ -22,6 +23,7 @@ public class SmashParticle extends Entity {
 		}
 	}
 
+	@Override
 	public void render(Screen screen) {
 		int col = Color.get(-1, 555, 555, 555);// color of the particle (white)
 		screen.render(x - 8, y - 8, 5 + 12 * 32, col, 2); // renders the top-left part

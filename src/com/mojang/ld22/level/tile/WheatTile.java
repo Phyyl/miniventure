@@ -19,6 +19,7 @@ public class WheatTile extends Tile {
 	}
 
 	/** Draws the tile to the screen */
+	@Override
 	public void render(Screen screen, Level level, int x, int y) {
 		int age = level.getData(x, y); // gets the tile's age
 		int col = Color.get(level.dirtColor - 121, level.dirtColor - 11, level.dirtColor, 50); // gets the color of the tile
@@ -38,6 +39,7 @@ public class WheatTile extends Tile {
 	}
 
 	/** Update method, updates (ticks) 60 times a second */
+	@Override
 	public void tick(Level level, int xt, int yt) {
 		/* random.nextBoolean() gives a random choice between true or false */
 		if (random.nextBoolean() == false) return; // if the random boolean is false, then skip the rest of the code
@@ -47,6 +49,7 @@ public class WheatTile extends Tile {
 	}
 
 	/** determines what happens when an item is used in the tile */
+	@Override
 	public boolean interact(Level level, int xt, int yt, Player player, Item item, int attackDir) {
 		if (item instanceof ToolItem) { // if the item is a tool...
 			ToolItem tool = (ToolItem) item; // converts an Item object into a ToolItem object
@@ -61,6 +64,7 @@ public class WheatTile extends Tile {
 	}
 
 	/** What happens when you step on the tile */
+	@Override
 	public void steppedOn(Level level, int xt, int yt, Entity entity) {
 		if (random.nextInt(60) != 0) return; // if a random number between 0 and 59 does NOT equal 0, then skip the rest of this code
 		if (level.getData(xt, yt) < 2) return; // if the age of this tile is less than 2, then skip the rest of this code
@@ -68,6 +72,7 @@ public class WheatTile extends Tile {
 	}
 
 	/** What happens when you punch the tile */
+	@Override
 	public void hurt(Level level, int x, int y, Mob source, int dmg, int attackDir) {
 		harvest(level, x, y); // harvest the tile
 	}

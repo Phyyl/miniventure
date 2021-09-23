@@ -25,6 +25,7 @@ public class Sound {
 	public void play() {
 		try {
 			new Thread() { //creates a new thread (string of events)
+				@Override
 				public void run() { //runs the thread
 					clip.play(); // plays the sound clip when called
 				}

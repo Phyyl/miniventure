@@ -26,6 +26,7 @@ public class TextParticle extends Entity {
 	}
 
 	/** Update method, 60 updates (ticks) per second */
+	@Override
 	public void tick() {
 		time++; // increases time
 		if (time > 60) { // if time is over 60 (1 second) then...
@@ -45,6 +46,7 @@ public class TextParticle extends Entity {
 		y = (int) yy; // the y coordinate is yy
 	}
 
+	@Override
 	public void render(Screen screen) {
 		Font.draw(msg, screen, x - msg.length() * 4 + 1, y - (int) (zz) + 1, Color.get(-1, 0, 0, 0)); //renders the backdrop
 		Font.draw(msg, screen, x - msg.length() * 4, y - (int) (zz), col); // renders the text

@@ -20,6 +20,7 @@ public class ContainerMenu extends Menu {
 		this.container = container; // Inventory of the chest
 	}
 
+	@Override
 	public void tick() {
 		if (input.menu.clicked) game.setMenu(null); // If the player selects the "menu" key, then it will exit the chest
 
@@ -70,6 +71,7 @@ public class ContainerMenu extends Menu {
 		}
 	}
 
+	@Override
 	public void render(Screen screen) {
 		if (window == 1) screen.setOffset(6 * 8, 0); // Offsets the windows for when the player's inventory is selected
 		Font.renderFrame(screen, title, 1, 1, 12, 11); // Renders the chest's window

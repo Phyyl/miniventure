@@ -13,6 +13,7 @@ public class WonMenu extends Menu {
 	}
 	
 	/** Update Method, 60 updates (ticks) per second */
+	@Override
 	public void tick() {
 		if (inputDelay > 0) //If the input delay is above 0 (it starts at 60) then...
 			inputDelay--; // the inputDelay will minus by 1. 
@@ -22,6 +23,7 @@ public class WonMenu extends Menu {
 	}
 	
 	/** Render method, draws stuff on the screen. */
+	@Override
 	public void render(Screen screen) {
 		Font.renderFrame(screen, "", 1, 3, 18, 9); // Draws a box frame based on 4 points. You can include a title as well.
 		Font.draw("You won! Yay!", screen, 2 * 8, 4 * 8, Color.get(-1, 555, 555, 555)); // Draws text

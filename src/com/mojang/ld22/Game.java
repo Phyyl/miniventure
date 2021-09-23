@@ -8,8 +8,6 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.IOException;
-import java.util.Random;
-
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
@@ -29,11 +27,6 @@ import com.mojang.ld22.screen.WonMenu;
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 	
-	/* random is a class that can create random numbers. 
-	 * Example: 'int r = random.randInt(20);'
-	 * r will be a number between (0 to 19) [0 counts as the first value)
-	 */
-	private Random random = new Random();
 	// This is the name on the application window
 	public static final String NAME = "Miniventure";
 	// This is the hight of the game * scale
@@ -43,11 +36,11 @@ public class Game extends Canvas implements Runnable {
 	private static final int SCALE = 3; // scales the window
 
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB); //creates an image to be displayed on the screen.
-	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData(); // the array of pixels that will be displayed on the screen.
+	private int[] pixels; // the array of pixels that will be displayed on the screen.
 	private boolean running = false; // This stores if the game is running or paused
 	private Screen screen; // Creates the main screen
 	private Screen lightScreen; // Creates a front screen to render the darkness in caves (Fog of war).
-	private InputHandler input = new InputHandler(this); // Creates the class (InputHandler.java) that will take in out inputs (aka: pressing the 'W' key).
+	private InputHandler input; // Creates the class (InputHandler.java) that will take in out inputs (aka: pressing the 'W' key).
 
 	private int[] colors = new int[256]; // All of the colors put into an array
 	private int tickCount = 0; // Used in the ticking system
@@ -67,6 +60,14 @@ public class Game extends Canvas implements Runnable {
 	private int pendingLevelChange; // used to determined if the player should change levels or not.
 	private int wonTimer = 0; // the paused time when you win before the win menu shows up.
 	public boolean hasWon = false; 	// If the player wins this is set to true
+
+	public Game()
+	{
+		super();
+
+		pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+		input = new InputHandler(this);
+	}
 
 	//Blue text is used in eclipse to set the description of a method. Put your mouse over the "SetMenu(Menu menu)" method text to see it.
 	/** Use this method to switch to another menu. */

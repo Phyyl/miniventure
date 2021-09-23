@@ -25,6 +25,7 @@ public class OreTile extends Tile {
 		this.color = toDrop.color & 0xffff00; // assigns the color based off the resource's color with an edit to the red & green in the color.
 	}
 
+	@Override
 	public void render(Screen screen, Level level, int x, int y) {
 		color = (toDrop.color & 0xffffff00) + Color.get(level.dirtColor); // adds the background dirt color to the sprite
 		screen.render(x * 16 + 0, y * 16 + 0, 17 + 1 * 32, color, 0); // renders the top left of the ore
@@ -34,16 +35,19 @@ public class OreTile extends Tile {
 	}
 
 	/** Determines if the player can walk through the ore (they can't) */
+	@Override
 	public boolean mayPass(Level level, int x, int y, Entity e) {
 		return false;
 	}
 
 	/** When you punch the ore, it will do 0 damage to the ore */
+	@Override
 	public void hurt(Level level, int x, int y, Mob source, int dmg, int attackDir) {
 		hurt(level, x, y, 0);
 	}
 
 	/** What happens when you hit the ore with a item */
+	@Override
 	public boolean interact(Level level, int xt, int yt, Player player, Item item, int attackDir) {
 		if (item instanceof ToolItem) { // If the item happens to be a tool...
 			ToolItem tool = (ToolItem) item; // converts the Item object into a ToolItem object.
@@ -77,6 +81,7 @@ public class OreTile extends Tile {
 	}
 
 	/** This is what happens when an entity runs into the ore */
+	@Override
 	public void bumpedInto(Level level, int x, int y, Entity entity) {
 		entity.hurt(this, x, y, 3); // does 3 damage to the entity. Ouch!
 	}

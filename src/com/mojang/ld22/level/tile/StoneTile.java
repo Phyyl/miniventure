@@ -11,6 +11,7 @@ public class StoneTile extends Tile {
 	}
 
 	/** Draws the tile to the screen */
+	@Override
 	public void render(Screen screen, Level level, int x, int y) {
 		int rc1 = 111; // first rock color
 		int rc2 = 333; // second rock color
@@ -22,6 +23,7 @@ public class StoneTile extends Tile {
 	}
 
 	/** Determines if entities can pass through the tile */
+	@Override
 	public boolean mayPass(Level level, int x, int y, Entity e) {
 		return false; // they can't.
 	}

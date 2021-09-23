@@ -23,7 +23,7 @@ public class Level {
 
 	public byte[] tiles; // an array of all the tiles in the world.
 	public byte[] data; // an array of the data of the tiles in the world.
-	public List<Entity>[] entitiesInTiles; // An array of each entity in each tile in the world
+	public List<List<Entity>> entitiesInTiles; // An array of each entity in each tile in the world
 
 	public int grassColor = 141; // color of grass
 	public int dirtColor = 322; // color of dirt
@@ -33,6 +33,7 @@ public class Level {
 
 	public List<Entity> entities = new ArrayList<Entity>(); // A list of all the entities in the world
 	private Comparator<Entity> spriteSorter = new Comparator<Entity>() { // creates a sorter for all the entities to be rendered.
+		@Override
 		public int compare(Entity e0, Entity e1) { // compares 2 entities
 			if (e1.y < e0.y) return +1; // If the y position of the first entity is less (higher up) than the second entity, then it will be moved up in sorting.
 			if (e1.y > e0.y) return -1; // If the y position of the first entity is more (lower) than the second entity, then it will be moved down in sorting.
@@ -40,7 +41,6 @@ public class Level {
 		}
 	};
 
-	@SuppressWarnings("unchecked") // @SuppressWarnings ignores the warnings (yellow underline) in this method.
 	/** Level which the world is contained in */
 	public Level(int w, int h, int level, Level parentLevel) {
 		if (level < 0) { // If the level is less than 0...
@@ -87,9 +87,9 @@ public class Level {
 				}
 		}
 
-		entitiesInTiles = new ArrayList[w * h]; // Creates a new arrayList with the size of width * height.
+		entitiesInTiles = new ArrayList<List<Entity>>(w * h); // Creates a new arrayList with the size of width * height.
 		for (int i = 0; i < w * h; i++) { // Loops (width * height) times
-			entitiesInTiles[i] = new ArrayList<Entity>(); // Adds a entity list in that tile.
+			entitiesInTiles.add(new ArrayList<Entity>()); // Adds a entity list in that tile.
 		}
 		
 		if (level==1) { // If the level is 1 (sky) then...
@@ -130,7 +130,7 @@ public class Level {
 		for (int y = yo; y <= h + yo; y++) { // loops through the vertical positions
 			for (int x = xo; x <= w + xo; x++) { // loops through the horizontal positions
 				if (x < 0 || y < 0 || x >= this.w || y >= this.h) continue; // If the x & y positions of the sprites are within the map's boundaries
-				rowSprites.addAll(entitiesInTiles[x + y * this.w]); // adds all of the sprites in the entitiesInTiles array.
+				rowSprites.addAll(entitiesInTiles.get(x + y * this.w)); // adds all of the sprites in the entitiesInTiles array.
 			}
 			if (rowSprites.size() > 0) { // If the rowSprites list size is larger than 0...
 				sortAndRender(screen, rowSprites); // sorts and renders the sprites on the screen
@@ -152,11 +152,11 @@ public class Level {
 		for (int y = yo - r; y <= h + yo + r; y++) { // loops through the vertical positions + r
 			for (int x = xo - r; x <= w + xo + r; x++) { // loops through the horizontal positions + r
 				if (x < 0 || y < 0 || x >= this.w || y >= this.h) continue; // If the x & y positions of the sprites are within the map's boundaries
-				List<Entity> entities = entitiesInTiles[x + y * this.w]; // gets all the entities in the level
+				List<Entity> entities = entitiesInTiles.get(x + y * this.w); // gets all the entities in the level
 				for (int i = 0; i < entities.size(); i++) { // loops through the list of entities
 					Entity e = entities.get(i); // gets the current entity
-					int lr = e.getLightRadius(); // gets the light radius from the entity.
-					if (lr > 0) screen.renderLight(e.x - 1, e.y - 4, lr * 8); // If the light radius is above 0, then render the light.
+					int elr = e.getLightRadius(); // gets the light radius from the entity.
+					if (elr > 0) screen.renderLight(e.x - 1, e.y - 4, elr * 8); // If the light radius is above 0, then render the light.
 				}
 				int lr = getTile(x, y).getLightRadius(this, x, y); // gets the light radius from local tiles (like lava)
 				if (lr > 0) screen.renderLight(x * 16 + 8, y * 16 + 8, lr * 8); // if the light radius is above 0, then render the light.
@@ -221,13 +221,13 @@ public class Level {
 	/** Inserts an entity to the entitiesInTiles list */
 	private void insertEntity(int x, int y, Entity e) {
 		if (x < 0 || y < 0 || x >= w || y >= h) return; // if the entity's position is outside the world, then stop the method.
-		entitiesInTiles[x + y * w].add(e); // adds the entity to the entitiesInTiles list array.
+		entitiesInTiles.get(x + y * w).add(e); // adds the entity to the entitiesInTiles list array.
 	}
 
 	/** Removes an entity in the entitiesInTiles list */
 	private void removeEntity(int x, int y, Entity e) {
 		if (x < 0 || y < 0 || x >= w || y >= h) return; // if the entity's position is outside the world, then stop the method.
-		entitiesInTiles[x + y * w].remove(e); // removes the entity to the entitiesInTiles list array.
+		entitiesInTiles.get(x + y * w).remove(e); // removes the entity to the entitiesInTiles list array.
 	}
 
 	/** Tries to spawn an entity in the world */
@@ -297,7 +297,7 @@ public class Level {
 		for (int y = yt0; y <= yt1; y++) { // Loops through the difference between y0 and y1
 			for (int x = xt0; x <= xt1; x++) { // Loops through the difference between x0 & x1
 				if (x < 0 || y < 0 || x >= w || y >= h) continue; // if the x & y position is outside the world, then skip the rest of this loop.
-				List<Entity> entities = entitiesInTiles[x + y * this.w]; // gets the entity from the x & y position
+				List<Entity> entities = entitiesInTiles.get(x + y * this.w); // gets the entity from the x & y position
 				for (int i = 0; i < entities.size(); i++) { // Loops through all the entities in the entities list
 					Entity e = entities.get(i); // gets the current entity
 					if (e.intersects(x0, y0, x1, y1)) result.add(e); // if the entity intersects these 4 points, then add it to the result list.

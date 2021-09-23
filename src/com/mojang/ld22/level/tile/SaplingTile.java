@@ -19,6 +19,7 @@ public class SaplingTile extends Tile {
 		connectsToLava = onType.connectsToLava; //Becomes connect to lava if the type it grows on can connect to sand.
 	}
 
+	@Override
 	public void render(Screen screen, Level level, int x, int y) {
 		onType.render(screen, level, x, y); // Calls the render method of the tile it grows on
 		int col = Color.get(10, 40, 50, -1); // Color of the sapling
@@ -26,6 +27,7 @@ public class SaplingTile extends Tile {
 	}
 
 
+	@Override
 	public void tick(Level level, int x, int y) {
 		int age = level.getData(x, y) + 1; // Gets the data of the age of the sapling
 		if (age > 100) {
@@ -35,6 +37,7 @@ public class SaplingTile extends Tile {
 		}
 	}
 
+	@Override
 	public void hurt(Level level, int x, int y, Mob source, int dmg, int attackDir) {
 		level.setTile(x, y, onType, 0); //If the sapling is hit, then it will turn back (disappear) into the block it grew on.
 	}

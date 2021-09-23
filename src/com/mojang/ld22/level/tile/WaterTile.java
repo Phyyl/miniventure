@@ -16,6 +16,7 @@ public class WaterTile extends Tile {
 
 	private Random wRandom = new Random();
 
+	@Override
 	public void render(Screen screen, Level level, int x, int y) {
 		/* Sets the seed for which it will affect random variables */
 		wRandom.setSeed((tickCount + (x / 2 - y) * 4311) / 10 * 54687121l + x * 3271612l + y * 3412987161l);
@@ -60,11 +61,13 @@ public class WaterTile extends Tile {
 	}
 
 	/** Determines if the entity can pass through the block */
+	@Override
 	public boolean mayPass(Level level, int x, int y, Entity e) {
 		return e.canSwim(); // If the entity can swim (which only the player can), then it will allow that entity to pass.
 	}
 
 	/** Update method, updates(ticks) every 60 ticks */
+	@Override
 	public void tick(Level level, int xt, int yt) {
 		int xn = xt; // next x position
 		int yn = yt; // next y position

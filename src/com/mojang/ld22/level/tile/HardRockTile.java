@@ -18,11 +18,13 @@ public class HardRockTile extends RockTile {
 	/* I changed this class to be a extension of RockTile.java. So now this class is a lot shorter than it normally is. */
 
 	/** What happens when you punch the tile */
+	@Override
 	public void hurt(Level level, int x, int y, Mob source, int dmg, int attackDir) {
 		hurt(level, x, y, 0); // when you punch the tile it will do 0 damage.
 	}
 
 	/** What happens when you use a item on the tile. */
+	@Override
 	public boolean interact(Level level, int xt, int yt, Player player, Item item, int attackDir) {
 		if (item instanceof ToolItem) { // if the item is a tool
 			ToolItem tool = (ToolItem) item; // converts the Item into a ToolItem

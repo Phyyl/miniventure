@@ -28,6 +28,7 @@ public class ItemEntity extends Entity {
 	}
 
 	/** Update method, updates (ticks) 60 times a second */
+	@Override
 	public void tick() {
 		time++; // increases time by 1
 		if (time >= lifeTime) { // if the time is larger or equal to lifeTime then...
@@ -57,10 +58,12 @@ public class ItemEntity extends Entity {
 		yy += goty - expectedy; // new yy position based on the difference between goty and expectedy
 	}
 
+	@Override
 	public boolean isBlockableBy(Mob mob) {
 		return false; // mobs cannot block this
 	}
 
+	@Override
 	public void render(Screen screen) {
 		/* this first part is for the blinking effect */
 		if (time >= lifeTime - 6 * 20) { // if time is larger or equal to lifeTime - 6 * 20 then...
@@ -70,6 +73,7 @@ public class ItemEntity extends Entity {
 		screen.render(x - 4, y - 4 - (int) (zz), item.getSprite(), item.getColor(), 0); // render the item based on the item's sprite and color
 	}
 
+	@Override
 	protected void touchedBy(Entity entity) {
 		if (time > 30) entity.touchItem(this); // if time is above 30, it will call the touchItem() method in an entity (Player.java)
 	}

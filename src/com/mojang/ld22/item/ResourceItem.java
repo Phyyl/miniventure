@@ -23,21 +23,25 @@ public class ResourceItem extends Item {
 	}
 
 	/** Gets the color of the resource */
+	@Override
 	public int getColor() {
 		return resource.color;
 	}
 	
 	/** Gets the sprite of the resource */
+	@Override
 	public int getSprite() {
 		return resource.sprite;
 	}
 
 	/** Renders the icon used for the resource */
+	@Override
 	public void renderIcon(Screen screen, int x, int y) {
 		screen.render(x, y, resource.sprite, resource.color, 0); // renders the icon
 	}
 
 	/** Renders the icon, name, and count of the resource */
+	@Override
 	public void renderInventory(Screen screen, int x, int y) {
 		screen.render(x, y, resource.sprite, resource.color, 0); // renders the icon
 		Font.draw(resource.name, screen, x + 32, y, Color.get(-1, 555, 555, 555)); // draws the name of the resource
@@ -47,15 +51,18 @@ public class ResourceItem extends Item {
 	}
 
 	/** Gets the name of the resource */
+	@Override
 	public String getName() {
 		return resource.name;
 	}
 
 	/** What happens when you pick up the item off the ground */
+	@Override
 	public void onTake(ItemEntity itemEntity) {
 	}
 
 	/** What happens when you interact and item with the world */
+	@Override
 	public boolean interactOn(Tile tile, Level level, int xt, int yt, Player player, int attackDir) {
 		if (resource.interactOn(tile, level, xt, yt, player, attackDir)) { // Calls the resource's 'interactOn()' method, if true then...
 			count--; // minuses the count by 1.
@@ -65,6 +72,7 @@ public class ResourceItem extends Item {
 	}
 
 	/** If the count is equal to, or less than 0. Then this will return true. */
+	@Override
 	public boolean isDepleted() {
 		return count <= 0;
 	}

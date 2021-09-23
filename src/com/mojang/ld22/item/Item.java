@@ -66,6 +66,6 @@ public class Item implements ListItem {
 
 	/** Sees if an item matches another item */
 	public boolean matches(Item item) {
-		return item.getClass() == getClass();
+		return item.getClass() == this.getClass();
 	}
 }

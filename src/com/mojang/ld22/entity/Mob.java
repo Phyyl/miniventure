@@ -12,16 +12,18 @@ public class Mob extends Entity {
 	public int hurtTime = 0; // A delay after being hurt, that temporarily prevents further damage for a short time
 	protected int xKnockback, yKnockback; // The amount of vertical/horizontal knockback that needs to be inflicted, if it's not 0, it will be moved one pixel at a time.
 	public int maxHealth = 10; // The maximum amount of health the mob can have
-	public int health = maxHealth; // The amount of health we currently have, and set it to the maximum we can have
+	public int health; // The amount of health we currently have, and set it to the maximum we can have
 	public int swimTimer = 0; // How much we have moved in water currently, used to halve movement speed
 	public int tickTime = 0; // Incremented whenever tick() is called, is effectively the age in ticks
 
 	public Mob() {
+		health = maxHealth;
 		x = y = 8; // By default, set x and y coordinates to 8
 		xr = 4; // Sets the x and y radius/size of the mob
 		yr = 3;
 	}
 
+	@Override
 	public void tick() { //
 		tickTime++; // Increment our tick counter
 		if (level.getTile(x >> 4, y >> 4) == Tile.lava) { // If we are trying to swim in lava
@@ -38,6 +40,7 @@ public class Mob extends Entity {
 		remove(); // Remove the mob, with the method inherited from Entity
 	}
 
+	@Override
 	public boolean move(int xa, int ya) { // Move the mob, overrides from Entity
 		if (isSwimming()) { // Check if the mob is swimming, ie. in water/lava
 			if (swimTimer++ % 2 == 0) return true; // Increments swimTimer, and continues only every second time (when swimTimer is not divisible by 2 evenly)
@@ -74,15 +77,18 @@ public class Mob extends Entity {
 		return tile == Tile.water || tile == Tile.lava; // Check if the tile is liquid, and return true if so
 	}
 
+	@Override
 	public boolean blocks(Entity e) { // Check if another entity would be prevented from moving through this one
 		return e.isBlockableBy(this); // Call the method on the other entity to determine this, and return it
 	}
 
+	@Override
 	public void hurt(Tile tile, int x, int y, int damage) { // Hurt the mob, when the source of damage is a tile
 		int attackDir = dir ^ 1; // Set attackDir to our own direction, inverted. XORing it with 1 flips the rightmost bit in the variable, this effectively adds one when even, and subtracts one when odd
 		doHurt(damage, attackDir); // Call the method that actually performs damage, and provide it with our new attackDir value
 	}
 
+	@Override
 	public void hurt(Mob mob, int damage, int attackDir) { // Hurt the mob, when the source is another mob
 		doHurt(damage, attackDir); // Call the method that actually performs damage, and use our provided attackDir
 	}

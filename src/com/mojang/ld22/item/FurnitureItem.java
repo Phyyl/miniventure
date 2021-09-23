@@ -18,36 +18,43 @@ public class FurnitureItem extends Item {
 	}
 
 	/** Gets the color of the furniture */
+	@Override
 	public int getColor() {
 		return furniture.col;
 	}
 
 	/** Gets the sprite of the furniture */
+	@Override
 	public int getSprite() {
 		return furniture.sprite + 10 * 32;
 	}
 
 	/** Renders the icon used for the furniture */
+	@Override
 	public void renderIcon(Screen screen, int x, int y) {
 		screen.render(x, y, getSprite(), getColor(), 0); // renders the icon
 	}
 
 	/** Renders the icon, and name of the furniture */
+	@Override
 	public void renderInventory(Screen screen, int x, int y) {
 		screen.render(x, y, getSprite(), getColor(), 0); // renders the icon
 		Font.draw(furniture.name, screen, x + 8, y, Color.get(-1, 555, 555, 555)); // draws the name of the furniture
 	}
 
 	/** What happens when you pick up the item off the ground (Not with the power glove) */
+	@Override
 	public void onTake(ItemEntity itemEntity) {
 	}
 
 	/** Determines if you can attack enemies with furniture (you can't) */
+	@Override
 	public boolean canAttack() {
 		return false;
 	}
 
 	/** What happens when you press the "Attack" key with the furniture in your hands */
+	@Override
 	public boolean interactOn(Tile tile, Level level, int xt, int yt, Player player, int attackDir) {
 		if (tile.mayPass(level, xt, yt, furniture)) { // If the furniture can go on the tile
 			furniture.x = xt * 16 + 8; // Placed furniture's X position
@@ -60,11 +67,13 @@ public class FurnitureItem extends Item {
 	}
 
 	/** Removes this item from the player's active item slot when depleted is true */
+	@Override
 	public boolean isDepleted() {
 		return placed;
 	}
 	
 	/** Gets the name of the furniture */
+	@Override
 	public String getName() {
 		return furniture.name;
 	}

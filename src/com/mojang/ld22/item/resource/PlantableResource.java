@@ -22,6 +22,7 @@ public class PlantableResource extends Resource {
 	}
 
 	/** Determines what happens when the resource is used on a certain tile */
+	@Override
 	public boolean interactOn(Tile tile, Level level, int xt, int yt, Player player, int attackDir) {
 		if (sourceTiles.contains(tile)) { // if the sourceTiles contains the called tile...
 			level.setTile(xt, yt, targetTile, 0); // sets the source tile into the targetTile

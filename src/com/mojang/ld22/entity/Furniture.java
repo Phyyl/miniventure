@@ -18,6 +18,7 @@ public class Furniture extends Entity {
 	}
 
 	/** Update method, updates (ticks) 60 times a second */
+	@Override
 	public void tick() {
 		if (shouldTake != null) { // if the player that should take this exists...
 			if (shouldTake.activeItem instanceof PowerGloveItem) { // if the player's current item is the power glove...
@@ -36,6 +37,7 @@ public class Furniture extends Entity {
 	}
 
 	/** Draws the furniture to the screen */
+	@Override
 	public void render(Screen screen) {
 		screen.render(x - 8, y - 8 - 4, sprite * 2 + 8 * 32, col, 0); // renders the top-left part of the furniture.
 		screen.render(x - 0, y - 8 - 4, sprite * 2 + 8 * 32 + 1, col, 0); // renders the top-right part of the furniture.
@@ -44,11 +46,13 @@ public class Furniture extends Entity {
 	}
 
 	/** Determines if this entity can block others */
+	@Override
 	public boolean blocks(Entity e) {
 		return true; // yes this can block your way (Needed for pushing)
 	}
 
 	/** What happens when this is touched by another entity */
+	@Override
 	protected void touchedBy(Entity entity) {
 		if (entity instanceof Player && pushTime == 0) { // if the entity is the player, and push time equals 0...
 			pushDir = ((Player) entity).dir; // pushDir is equal to the direction that the player is

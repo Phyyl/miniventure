@@ -22,6 +22,7 @@ public class CloudTile extends Tile {
 	 * Sorry if I can't explain these well - David.
      */
 
+	@Override
 	public void render(Screen screen, Level level, int x, int y) {
 		int col = Color.get(444, 444, 555, 555); // Color of the cloud
 		int transitionColor = Color.get(333, 444, 555, -1); //Transitional color between connections
@@ -71,10 +72,12 @@ public class CloudTile extends Tile {
 	}
 
 	/* Players can entities can walk on clouds */
+	@Override
 	public boolean mayPass(Level level, int x, int y, Entity e) {
 		return true;
 	}
 
+	@Override
 	public boolean interact(Level level, int xt, int yt, Player player, Item item, int attackDir) {
 		if (item instanceof ToolItem) { // If the player's current item is a tool...
 			ToolItem tool = (ToolItem) item; // Makes a ToolItem conversion of item.

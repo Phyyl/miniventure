@@ -14,6 +14,7 @@ public class ResourceRecipe extends Recipe {
 	}
 
 	/** Adds the resource into your inventory */
+	@Override
 	public void craft(Player player) {
 		player.inventory.add(0, new ResourceItem(resource, 1)); //adds the resource
 		}

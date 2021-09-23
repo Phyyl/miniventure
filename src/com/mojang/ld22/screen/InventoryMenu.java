@@ -18,6 +18,7 @@ public class InventoryMenu extends Menu {
 		}
 	}
 
+	@Override
 	public void tick() {
 		if (input.menu.clicked) game.setMenu(null); // If the player presses the "Menu" key, then the game will go back to the normal game
 
@@ -36,6 +37,7 @@ public class InventoryMenu extends Menu {
 		}
 	}
 
+	@Override
 	public void render(Screen screen) {
 		Font.renderFrame(screen, "inventory", 1, 1, 12, 11); // renders the blue box for the inventory
 		renderItemList(screen, 1, 1, 12, 11, player.inventory.items, selected); // renders the icon's and names of all the items in your inventory.

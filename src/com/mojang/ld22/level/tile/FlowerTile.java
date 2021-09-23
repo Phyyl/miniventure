@@ -20,6 +20,7 @@ public class FlowerTile extends GrassTile {
 	}
 
 	/** Draws the tile on the screen */
+	@Override
 	public void render(Screen screen, Level level, int x, int y) {
 	super.render(screen, level, x, y); // calls the render method of GrassTile.java
 
@@ -34,6 +35,7 @@ public class FlowerTile extends GrassTile {
 	}
 
 	/** What happens when you use an item on the tile */
+	@Override
 	public boolean interact(Level level, int x, int y, Player player, Item item, int attackDir) {
 		if (item instanceof ToolItem) { // if the item happens to be a tool...
 			ToolItem tool = (ToolItem) item; // converts the Item object into a ToolItem object
@@ -50,6 +52,7 @@ public class FlowerTile extends GrassTile {
 	}
 
 	/** What happens when you punch the tile */
+	@Override
 	public void hurt(Level level, int x, int y, Mob source, int dmg, int attackDir) {
 		int count = random.nextInt(2) + 1; // random count between 1 and 2.
 		for (int i = 0; i < count; i++) { // cycles through the count

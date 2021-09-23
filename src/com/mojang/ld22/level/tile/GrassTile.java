@@ -18,6 +18,7 @@ public class GrassTile extends Tile {
 		connectsToGrass = true; // this tile can connect to grass tiles.
 	}
 
+	@Override
 	public void render(Screen screen, Level level, int x, int y) {
 		int col = Color.get(level.grassColor, level.grassColor, level.grassColor + 111, level.grassColor + 111); // the color of the grass
 		int transitionColor = Color.get(level.grassColor - 111, level.grassColor, level.grassColor + 111, level.dirtColor); // the transition color.
@@ -49,6 +50,7 @@ public class GrassTile extends Tile {
 	}
 
 	/** Update method, updates (ticks) every 60 seconds. */
+	@Override
 	public void tick(Level level, int xt, int yt) {
 		int xn = xt; // next x position
 		int yn = yt; // next y position
@@ -63,6 +65,7 @@ public class GrassTile extends Tile {
 		}
 	}
 
+	@Override
 	public boolean interact(Level level, int xt, int yt, Player player, Item item, int attackDir) {
 		if (item instanceof ToolItem) { // if the item happens to be a tool
 			ToolItem tool = (ToolItem) item; // converts the Item object into a ToolItem object.

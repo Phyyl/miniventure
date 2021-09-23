@@ -18,12 +18,14 @@ import com.mojang.ld22.level.Level;
 public class RockTile extends Tile {
 	public RockTile(int id) {
 		super(id); // assigns the id
+		t = this;
 	}
 	
-	Tile t = this; // this tile, (The reason why this is here is for HardRockTile.java)
-	int mainColor = 444; // main color of the rock
-	int darkColor = 111; // dark color of the rock
+	protected Tile t; // this tile, (The reason why this is here is for HardRockTile.java)
+	protected int mainColor = 444; // main color of the rock
+	protected int darkColor = 111; // dark color of the rock
 
+	@Override
 	public void render(Screen screen, Level level, int x, int y) {
 		int col = Color.get(mainColor, mainColor, mainColor - 111, mainColor - 111); // color of the rock
 		int transitionColor = Color.get(darkColor, mainColor, mainColor + 111, level.dirtColor); // transitional color for the rock
@@ -71,16 +73,19 @@ public class RockTile extends Tile {
 	}
 
 	/** Determines of the player can pass through this tile */
+	@Override
 	public boolean mayPass(Level level, int x, int y, Entity e) {
 		return false; // the player cannot pass through it.
 	}
 
 	/** What happens when you punch the tile */
+	@Override
 	public void hurt(Level level, int x, int y, Mob source, int dmg, int attackDir) {
 		hurt(level, x, y, dmg); // do a punch amount of damage to it (1-3)
 	}
 
 	/** What happens when you use an item in this tile (like a pick-axe) */
+	@Override
 	public boolean interact(Level level, int xt, int yt, Player player, Item item, int attackDir) {
 		if (item instanceof ToolItem) { //if the item is a tool
 			ToolItem tool = (ToolItem) item; // converts the Item object to a ToolItem object
@@ -116,6 +121,7 @@ public class RockTile extends Tile {
 	}
 
 	/** Update method */
+	@Override
 	public void tick(Level level, int xt, int yt) {
 		int damage = level.getData(xt, yt); // gets the current damage of the tile
 		if (damage > 0) level.setData(xt, yt, damage - 1); // if the damage is larger than 0, then minus the current damage by 1.

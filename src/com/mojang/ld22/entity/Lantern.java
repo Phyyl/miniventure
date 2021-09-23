@@ -15,6 +15,7 @@ public class Lantern extends Furniture {
 	}
 
 	/** Gets the size of the radius for light underground (Bigger number, larger light) */
+	@Override
 	public int getLightRadius() {
 		return 8;
 	}
